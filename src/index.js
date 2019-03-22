@@ -1,16 +1,25 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { configureStore } from 'redux-starter-kit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
 import reducer from './reducer';
 
-const store = configureStore({ reducer });
+const persistConfig = { key: 'root', storage };
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const store = createStore(persistedReducer);
+const persistor = persistStore(store);
 
 render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById('app')
 );
