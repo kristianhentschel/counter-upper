@@ -37,6 +37,7 @@
     "webpack-dev-server": "^3.2.1"
   },
   "scripts": {
-    "dev": "webpack-dev-server --hot --host 0.0.0.0"
+    "dev": "webpack-dev-server --hot --host 0.0.0.0",
+    "build": "webpack --mode production"
   }
 }

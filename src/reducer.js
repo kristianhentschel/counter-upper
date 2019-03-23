@@ -2,15 +2,11 @@ import counterColors from './colors';
 
 const initialState = {
   counters: [
-    { name: "My first count", count: 1, color: 'purple', recents: []},
-    { name: "Do-not-wantitude-o-meter", count: 42, color: 'red', recents: [] },
-    { name: "There are more", count: -8, color: 'orange', recents: [] },
-    { name: "That's Numberwang!", count: Math.pow(2, 31) - 1, color: 'yellow', recents: [] },
-    { name: "Not even close", count: 0, color: 'green', recents: [] },
-    { name: "Last one I promise", count: 17, color: 'blue', recents: [] },
+    { name: "My first counter", count: 0, color: counterColors[0], recents: []},
   ],
   filter: 'all',
   editing: false,
+  lastCounterIndex: 1,
 };
 
 const reducer = (state = initialState, action) => {
