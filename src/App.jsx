@@ -14,6 +14,7 @@ import 'semantic-ui-css/semantic.min.css';
 import CountersList from './CountersList';
 import EditCounters from './EditCounters';
 import FilterSelector from './FilterSelector';
+import Export from './Export';
 
 const App = ({
   counters,
@@ -35,6 +36,7 @@ const App = ({
       }
       <Divider />
       <Button icon="cog" labelPosition="left" content="Edit" onClick={() => onEdit()} />
+      <Export counters={counters} />
     </Segment>
   );
 };
@@ -42,6 +44,7 @@ const App = ({
 const mapStateToProps = (state) => ({
   filter: state.filter,
   editing: state.editing,
+  counters: state.counters,
 });
 
 const mapDispatchToProps = (dispatch) => ({

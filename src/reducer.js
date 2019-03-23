@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
           if (c.name === action.name) {
             return {
               ...c,
-              count: c.count - 1,
+              count: c.count <= 0 ? 0 : (c.count - 1),
               recents: (c.recents || []).filter((d, i) => i !== 0),
             }
           }
