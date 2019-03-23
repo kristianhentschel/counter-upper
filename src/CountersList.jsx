@@ -24,7 +24,7 @@ const CountersList = ({
         key={name}
         color={color}
       >
-        <Statistic label={name} value={count} size={Math.abs(count) >= 1000 ? 'tiny' : 'normal'} />
+        <Statistic label={name} value={count} size={Math.abs(count) >= 1000 ? 'small' : 'large'} />
         <Label
           as="a"
           corner="right"

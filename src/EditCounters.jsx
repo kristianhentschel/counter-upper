@@ -31,21 +31,14 @@ const EditCounters = ({
   <Segment basic textAlign="center">
     <Header icon="cog" content="Counter Settings" />
     <Table unstackable fixed collapsing style={{ display: 'inline-block' }} size="small" compact="very">
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell content="Show" />
-          <Table.HeaderCell content="Colour" />
-          <Table.HeaderCell content="Name" />
-          <Table.HeaderCell content="Delete" />
-        </Table.Row>
-      </Table.Header>
       <Table.Body>
         {counters.map(({ name, color, count, hidden }) => (
           <Table.Row key={name} negative={hidden}>
             <Table.Cell textAlign="center">
-              <Checkbox
-                checked={hidden !== true}
-                onChange={(e, data) => { console.log(data); onChangeCounterHidden(name, !data.checked); }}
+              <Button
+                icon={hidden ? 'eye slash' : 'eye'}
+                basic
+                onClick={() => onChangeCounterHidden(name, !hidden)}
               />
             </Table.Cell>
             <Table.Cell>
@@ -54,13 +47,13 @@ const EditCounters = ({
                 icon="tint"
                 color={hidden ? 'grey' : color }
                 onClick={() => onCycleCounterColor(name, color)}
-                size="small"
               />
             </Table.Cell>
             <Table.Cell>
               <Input
                 defaultValue={name}
                 disabled={hidden}
+                style={{ width: '12em' }}
                 onBlur={(e) => onChangeCounterName(name, e.target.value)}
               />
             </Table.Cell>

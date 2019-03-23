@@ -56,7 +56,7 @@ const reducer = (state = initialState, action) => {
     case 'SET_COUNTER_NAME':
       let uniqueCount = 1;
       let uniqueName = action.newName;
-      while (!state.counters.every((c => c.name !== uniqueName))) {
+      while (!state.counters.every((c => (c.name === action.name) || (c.name !== uniqueName)))) {
         uniqueName = `${action.newName}-${uniqueCount}`;
         uniqueCount += 1;
       }
@@ -133,6 +133,7 @@ const reducer = (state = initialState, action) => {
             count: 0,
             color: counterColors[(state.lastCounterIndex || 0) % counterColors.length],
             recents: [],
+            hidden: false,
           }
         ],
       };
