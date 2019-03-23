@@ -20,7 +20,10 @@ const App = ({
     <Grid columns={2} padded relaxed>
       {counters.map(({ name, count, color }) => (
         <Grid.Column
-          onClick={() => increment(name)}
+          onClick={(e) => {
+            increment(name);
+            e.preventDefault();
+          }}
           key={name}
           color={color}
         >
