@@ -5,6 +5,7 @@ import {
   Grid,
   Statistic,
   Button,
+  Label,
 } from 'semantic-ui-react';
 
 const CountersList = ({
@@ -23,10 +24,11 @@ const CountersList = ({
         key={name}
         color={color}
       >
-        <Statistic label={name} value={count} />
-        <Button
-          floated="left"
-          icon="undo"
+        <Statistic label={name} value={count} size={Math.abs(count) >= 1000 ? 'tiny' : 'normal'} />
+        <Label
+          as="a"
+          corner="right"
+          icon="minus"
           onClick={(e) => {
             onDecrement(name);
             e.stopPropagation();

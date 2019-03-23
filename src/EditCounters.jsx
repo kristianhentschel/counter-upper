@@ -4,12 +4,16 @@ import { connect } from 'react-redux';
 import {
   Grid,
   Button,
-  Form,
+  Input,
+  Checkbox,
   Menu,
   List,
   Table,
   Container,
   Divider,
+  Modal,
+  Header,
+  Segment,
 } from 'semantic-ui-react';
 
 import counterColors from './colors';
@@ -24,49 +28,54 @@ const EditCounters = ({
   onAddCounter,
   onDeleteCounter,
 }) => (
-  <Container textAlign="center">
-    <Form>
-      <Table collapsing style={{ display: 'inline-block' }}>
-        <Table.Body>
-          {counters.map(({ name, color, count, hidden }) => (
-            <Table.Row key={name} negative={hidden}>
-              <Table.Cell>
-                <Button
-                  basic
-                  disabled={hidden}
-                  icon="circle"
-                  color={hidden ? 'grey' : color }
-                  onClick={() => onCycleCounterColor(name, color)}
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Form.Input 
-                  defaultValue={name}
-                  disabled={hidden}
-                  onBlur={(e) => onChangeCounterName(name, e.target.value)}
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <Form.Checkbox
-                  checked={hidden === true}
-                  label="hidden"
-                  onChange={(e, data) => { console.log(data); onChangeCounterHidden(name, data.checked); }}
-                />
-              </Table.Cell>
-              <Table.Cell>
-                <DeleteWithConfirmation name={name} count={count} color={color} onConfirmedDelete={() => onDeleteCounter(name)} />
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-      <Container>
-        <Button onClick={onAddCounter} content="Add counter" icon="plus" />
-      </Container>
-      <Divider />
-      <Button primary type="submit" onClick={onCloseEdit} content="Return" icon="checkmark" />
-    </Form>
-  </Container>
+  <Segment basic textAlign="center">
+    <Header icon="cog" content="Counter Settings" />
+    <Table unstackable fixed collapsing style={{ display: 'inline-block' }} size="small" compact="very">
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell content="Show" />
+          <Table.HeaderCell content="Colour" />
+          <Table.HeaderCell content="Name" />
+          <Table.HeaderCell content="Delete" />
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {counters.map(({ name, color, count, hidden }) => (
+          <Table.Row key={name} negative={hidden}>
+            <Table.Cell textAlign="center">
+              <Checkbox
+                checked={hidden !== true}
+                onChange={(e, data) => { console.log(data); onChangeCounterHidden(name, !data.checked); }}
+              />
+            </Table.Cell>
+            <Table.Cell>
+              <Button
+                disabled={hidden}
+                icon="tint"
+                color={hidden ? 'grey' : color }
+                onClick={() => onCycleCounterColor(name, color)}
+                size="small"
+              />
+            </Table.Cell>
+            <Table.Cell>
+              <Input
+                defaultValue={name}
+                disabled={hidden}
+                onBlur={(e) => onChangeCounterName(name, e.target.value)}
+              />
+            </Table.Cell>
+            <Table.Cell>
+              <DeleteWithConfirmation name={name} count={count} color={color} onConfirmedDelete={() => onDeleteCounter(name)} />
+            </Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+    <Container>
+      <Button onClick={onAddCounter} content="Add counter" icon="plus" />
+      <Button primary onClick={onCloseEdit} content="Return" icon="checkmark" />
+    </Container>
+  </Segment>
 );
 
 const mapStateToProps = (state) => ({

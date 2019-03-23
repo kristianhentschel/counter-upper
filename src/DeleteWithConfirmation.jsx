@@ -30,7 +30,7 @@ class DeleteWithConfirmation extends React.Component {
         open={open}
         onOpen = {this.onOpen}
         onClose = {this.onClose}
-        trigger={trigger || <Button negative icon="trash" />}
+        trigger={trigger || <Button negative basic icon="trash" />}
         size="tiny"
         closeIcon
       >

@@ -7,7 +7,8 @@ import {
   Statistic,
   Container,
   Divider,
-  Button
+  Button,
+  Segment,
 } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import CountersList from './CountersList';
@@ -23,9 +24,9 @@ const App = ({
   onChangeFilter,
 }) => {
   if (editing) return <EditCounters />;
-  
+
   return (
-    <Container textAlign="center">
+    <Segment basic textAlign="center">
       <CountersList />
       <Divider />
       <Button.Group>
@@ -49,10 +50,9 @@ const App = ({
       </Button.Group>
       <Divider />
       <Button icon="cog" labelPosition="left" content="Edit" onClick={() => onEdit()} />
-    </Container>
+    </Segment>
   );
 };
-
 
 const mapStateToProps = (state) => ({
   filter: state.filter,
