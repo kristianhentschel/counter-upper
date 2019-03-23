@@ -10,64 +10,63 @@ import {
   Button
 } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import CountersList from './CountersList';
+import EditCounters from './EditCounters';
 
 const App = ({
   counters,
-  increment,
-  decrement,
-}) => (
-  <Container textAlign="center">
-    <Grid columns={2} padded relaxed>
-      {counters.map(({ name, count, color }) => (
-        <Grid.Column
-          onClick={(e) => {
-            increment(name);
-            e.preventDefault();
-          }}
-          key={name}
-          color={color}
-        >
-          <Statistic label={name} value={count} />
-        </Grid.Column>
-      ))}
-    </Grid>
-    <Divider />
-    <Button.Group>
-      <Button primary active content="All time" />
-      <Button.Or />
-      <Button content="This week" />
-      <Button.Or />
-      <Button content="Today" />
-    </Button.Group>
-    <Divider />
-    <Button icon="cog" labelPosition="left" content="Edit" />
-  </Container>
-);
-
-App.propTypes = {
-  counters: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  increment: PropTypes.func.isRequired,
-  decrement: PropTypes.func.isRequired,
+  filter,
+  editing,
+  onIncrement,
+  onDecrement,
+  onEdit,
+  onChangeFilter,
+}) => {
+  if (editing) return <EditCounters />;
+  
+  return (
+    <Container textAlign="center">
+      <CountersList />
+      <Divider />
+      <Button.Group>
+        <Button
+          content="All time"
+          primary={filter === 'all'}
+          onClick={() => onChangeFilter('all')}
+        />
+        <Button.Or />
+        <Button
+          content="This week"
+          primary={filter === 'week'}
+          onClick={() => onChangeFilter('week')}
+        />
+        <Button.Or />
+        <Button
+          content="Today"
+          primary={filter === 'day'}
+          onClick={() => onChangeFilter('day')}
+        />
+      </Button.Group>
+      <Divider />
+      <Button icon="cog" labelPosition="left" content="Edit" onClick={() => onEdit()} />
+    </Container>
+  );
 };
 
+
 const mapStateToProps = (state) => ({
-  counters: state.counters,
+  filter: state.filter,
+  editing: state.editing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  increment: (name) => dispatch({
-    type: "INCREMENT",
-    name,
+  onChangeFilter: (filter) => dispatch({
+    type: "SET_FILTER",
+    filter,
   }),
-  decrement: (name) => dispatch({
-    type: "DECREMENT",
-    name,
+  onEdit: (editing) => dispatch({
+    type: "SET_EDITING",
+    editing: true,
   }),
 });
 
