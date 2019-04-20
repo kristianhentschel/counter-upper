@@ -2,7 +2,7 @@
   "name": "counter-upper",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Kristian Hentschel <Kristian.Hentschel@bbc.co.uk>",
+  "author": "Kristian Hentschel <kristian@kristianhentschel.com>",
   "license": "MIT",
   "private": true,
   "dependencies": {
